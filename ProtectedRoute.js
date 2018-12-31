@@ -1,17 +1,10 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedPath = ({condition ,component: Component,...rest}) => {
+const ProtectedPath = ({condition ,component: Component,...args}) => {
   return (
-    <Route {...rest}
-      render={ (props) => {
-          if(condition()){
-           return <Component {...props} />
-         } else {
-           return <Redirect to='/' /> //Redirect to whatever page here.
-         }
-      }} />
+    <Route {...args} render={ (props) => condition() ? <Component {...props} /> : <Redirect to='/' />  } />
   )
-}
-
+};
+ 
 export default ProtectedPath;
